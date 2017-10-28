@@ -10,6 +10,8 @@ verbs_collection = database.verbs
 adjetivos_collection = database.adjectives
 sinominos_collection = database.synonyms
 pronouns_collection = database.pronouns
+nouns_collection = database.nouns
+
 
 
 
@@ -24,4 +26,7 @@ def find_sinonimos(book):
 
 def find_pronombres(book):
     return pronouns_collection.find({"work" : {"$in" : book}}).count()
+
+def find_nouns(book):
+    return nouns_collection.find({"work" : {"$in" : book}}).count()
 

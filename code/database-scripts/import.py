@@ -24,9 +24,12 @@ def delete_special_characters(data_list):
         work = work.replace(';', '')
         work = work.replace('-', '')
         work = work.replace('_', '')
+        work = work.replace("\t", '')
         work = work.replace("''", '')
 
         final_list.append(work.lower())
+
+    final_list = list(filter(None, final_list))
 
     return final_list
 
@@ -79,10 +82,9 @@ def save_adjectives():
 def save_synonyms():
     synonyms_file = open("txt_files/synonyms.txt", "r")
 
-    content = synonyms_file.read()
-    synonyms_list = content.split(" ")
-    synonyms_list = [d.replace("\n", '') for d in synonyms_list]
-    synonyms_list = list(filter(None, synonyms_list))
+    synonyms_list = []
+    for line in synonyms_file.readlines():
+        synonyms_list.append(line)
 
     formatted_synonyms = delete_special_characters(synonyms_list)
 
@@ -92,8 +94,23 @@ def save_synonyms():
         print(mongo_data)
 
 
+def save_nouns():
+    nouns_file = open("txt_files/nouns.txt", "r")
 
-#save_adjectives()
-#save_synonyms()
-#save_verbs()
-#save_pronouns()
+    nouns_list = []
+    for line in nouns_file.readlines():
+        nouns_list.append(line)
+
+    formatted_nouns = delete_special_characters(nouns_list)
+
+    for data in formatted_nouns:
+        mongo_data = {"work": data}
+        database.nouns.insert_one(mongo_data).inserted_id
+        print(mongo_data)
+
+
+save_adjectives()
+save_synonyms()
+save_verbs()
+save_pronouns()
+save_nouns()

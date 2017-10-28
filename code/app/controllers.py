@@ -22,9 +22,23 @@ class File(Resource):
         adjetivos = find_adjetives(libro)
         sinominos = find_sinonimos(libro)
         pronombres = find_pronombres(libro)
-        
+        sustantivos = find_nouns(libro)
 
-        return {"message": "El libro {} tiene {} verbos, {} adjetivos, {} sinonimos y {} pronombres".format(str(book.filename), verbos, adjetivos, sinominos, pronombres)}
+        json_data = {}
+
+        json_data["verbs"] = verbos
+        json_data["adjetives"] = adjetivos
+        json_data["synonyms"] = sinominos
+        json_data["pronouns"] = pronombres
+        json_data["nouns"] = sustantivos
+        json_data["book_length"] = int(len(libro))
+        json_data["verbs_average"] = int(len(libro) / verbos)
+        json_data["adjetives_average"] = int(len(libro) / adjetivos)
+        json_data["synonyms_average"] = int(len(libro) / sinominos)
+        json_data["pronouns_average"] = int(len(libro) / pronombres)
+        json_data["nouns_average"] = int(len(libro) / sustantivos)
+
+        return json_data
 
 
 class Print(Resource):
