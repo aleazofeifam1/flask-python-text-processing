@@ -16,7 +16,7 @@ def delete_special_characters(book_list):
         work = work.replace('_', '')
         work = work.replace("''", '')
 
-        book.append(work)
+        book.append(work.lower())
 
     return book
 

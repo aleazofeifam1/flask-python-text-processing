@@ -7,8 +7,10 @@ connection = MongoClient(config.DB_HOST, config.DB_PORT)
 database = connection.repository
 
 verbs_collection = database.verbs
-adjetivos_collection = database.adjetivos
-sinominos_collection = database.sinominos
+adjetivos_collection = database.adjectives
+sinominos_collection = database.synonyms
+pronouns_collection = database.pronouns
+
 
 
 def find_verbs(book):
@@ -19,4 +21,7 @@ def find_adjetives(book):
 
 def find_sinonimos(book):
     return sinominos_collection.find({"work" : {"$in" : book}}).count()
+
+def find_pronombres(book):
+    return pronouns_collection.find({"work" : {"$in" : book}}).count()
 

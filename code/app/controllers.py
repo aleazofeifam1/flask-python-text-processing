@@ -21,9 +21,10 @@ class File(Resource):
         verbos = find_verbs(libro)
         adjetivos = find_adjetives(libro)
         sinominos = find_sinonimos(libro)
+        pronombres = find_pronombres(libro)
         
 
-        return {"message": "El libro {} tiene {} verbos, {} adjetivos y {} sinonimos".format(str(book.filename), verbos, adjetivos, sinominos)}
+        return {"message": "El libro {} tiene {} verbos, {} adjetivos, {} sinonimos y {} pronombres".format(str(book.filename), verbos, adjetivos, sinominos, pronombres)}
 
 
 class Print(Resource):
