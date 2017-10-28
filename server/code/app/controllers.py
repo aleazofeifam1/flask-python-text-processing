@@ -16,9 +16,14 @@ class File(Resource):
         book.save(os.path.join(config.FILE_FOLDER, book.filename))
         location = "{}/{}".format(config.FILE_FOLDER, book.filename)
 
-        book = formato.process_book(location)
+        libro = formato.process_book(location)
 
-        return {"message": "todo sirve"}
+        verbos = find_verbs(libro)
+        adjetivos = find_adjetives(libro)
+        sinominos = find_sinonimos(libro)
+        
+
+        return {"message": "El libro {} tiene {} verbos, {} adjetivos y {} sinonimos".format(str(book.filename), verbos, adjetivos, sinominos)}
 
 
 class Print(Resource):
@@ -33,3 +38,8 @@ class Print(Resource):
         except (OSError, IOError) as identifier:   
 
             return {"mesage": "El archivo {} no existe".format(path)}
+
+        #verbos      = verbs_collection.find({"work" : {"$in" : book}}).count()
+        #sinominos   = sinominos_collection.find({"work" : {"$in" : book}}).count()
+        ##adjetivos   = adjetivos_collection.find({"work" : {"$in" : book}}).count()
+        #return {"message": "Verbos:{}, Sinonimos:{}, Adjetivos{}".format(verbos, sinominos, adjetivos)}, 201
